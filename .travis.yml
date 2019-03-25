@@ -1,17 +1,37 @@
 language: python
 dist: trusty
+matrix:
+  include:
+    - language: python
+      python:
+        - 3.5
+      before_install:
+        - pip install requests
 
-python:
-  - "3.5"
 
-before_install:
-  - pip install requests
+      install:
+        - git clone https://github.com/canonical-webteam/documentation-builder
+        - pip install ./documentation-builder
+  
+      script:
+        - python3 ./documentation-builder/documentation-builder
+        
+    - languge: go
+      go:
+        - master
+      
+      before_install:
+        - go get github.com/ValeLint/vale 
+      script:
+        - vale --glob='*.{md}' en
 
-install:
-  - git clone https://github.com/canonical-webteam/documentation-builder
-  - pip install ./documentation-builder
-  - go get github.com/ValeLint/vale 
-script:
-  - python3 ./documentation-builder/documentation-builder
-  - vale --glob='*.{md}' en
+
+
+
+
+
+
+  
+notifications:
+  email: false
 

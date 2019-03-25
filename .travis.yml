@@ -1,4 +1,5 @@
-dist: trusty
+dist: xenial
+language: go
 matrix:
   include:
     - language: python
@@ -17,7 +18,7 @@ matrix:
         
     - languge: go
       go:
-        - master
+        - 1.0
       
       before_install:
         - go get github.com/errata-ai/vale
